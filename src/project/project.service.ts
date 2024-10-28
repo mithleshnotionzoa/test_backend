@@ -26,11 +26,10 @@ export class ProjectService {
     // console.log('project detail in project service', createProjectDto);
     const projectDetail = this.projectRepository.create(createProjectDto);
     const savedProjectDetail = await this.projectRepository.save(projectDetail);
-    return {
-      projectId: savedProjectDetail.id,
-      projectName: savedProjectDetail.project_name,
-      token: savedProjectDetail.token,
-    };
+    const projects = await this.projectRepository.find({
+      where: { loginId: savedProjectDetail.loginId },
+    });
+    return projects;
   }
 
   // {

@@ -6,14 +6,17 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 // import { ProjectHostRule } from './project-host-rule/entities/project-host-rule.entity';
 // import { Token } from './token/entities/token.entity';
 // import { Activity } from './activity/entities/activity.entity';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 export const appDataSource: DataSourceOptions = {
   type: 'mysql',
   host: 'localhost',
-  port: 3306,
+  port: parseInt(process.env.DATABASE_PORT),
   username: 'root',
-  database: 'testdb',
-  password: 'Mithleshkr$12',
+  database: process.env.DATABASE_NAME,
+  password: process.env.DATABASE_PASSWORD,
   entities: ['dist/**/*.entity.js'],
   migrations: ['dist/src/migrations/*.js'],
   synchronize: true,

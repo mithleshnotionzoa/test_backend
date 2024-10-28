@@ -16,7 +16,7 @@ import { TokenModule } from '../token/token.module';
     TypeOrmModule.forFeature([Login]),
     JwtModule.register({
       secret: constant.SECRET_KEY,
-      signOptions: { expiresIn: '2m' },
+      signOptions: { expiresIn: '5m' },
     }),
     TokenModule,
   ],
