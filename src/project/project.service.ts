@@ -21,16 +21,16 @@ export class ProjectService {
     private jwtService: JwtService,
   ) {}
   // Method to create a project
+
   async create(createProjectDto: CreateProjectDto) {
     //('grabbed email', this.grabbedEmail);
     // console.log('project detail in project service', createProjectDto);
     const projectDetail = this.projectRepository.create(createProjectDto);
     const savedProjectDetail = await this.projectRepository.save(projectDetail);
-    return {
-      projectId: savedProjectDetail.id,
-      projectName: savedProjectDetail.project_name,
-      token: savedProjectDetail.token,
-    };
+    const projects = await this.projectRepository.find({
+      where: { loginId: savedProjectDetail.loginId },
+    });
+    return projects;
   }
 
   // {
@@ -54,9 +54,9 @@ export class ProjectService {
   //   this.logService.create(logDto);
   // }
   // Uncomment and implement these methods if needed
-  // findAll(): Promise<Project[]> {
-  //   return this.projectRepository.find();
-  // }
+  findAll(): Promise<Project[]> {
+    return this.projectRepository.find();
+  }
 
   findOne(token: any) {
     return this.projectRepository.findOne({ where: { token: token } });
@@ -70,3 +70,4 @@ export class ProjectService {
   //   return this.projectRepository.delete(id).then(() => {});
   // }
 }
+

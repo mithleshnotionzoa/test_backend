@@ -29,7 +29,7 @@ export class LoginService {
 
       const payload = { email: savedUser.email, password: savedUser.password };
       const accessToken = await this.jwtService.signAsync(payload, {
-        expiresIn: '2m',
+        expiresIn: '5m',
       });
 
       await this.tokenService.create({
@@ -59,7 +59,7 @@ export class LoginService {
         password: existingUser.password,
       };
       const newAccessToken = await this.jwtService.signAsync(againPayload, {
-        expiresIn: '2m',
+        expiresIn: '5m',
       });
 
       await this.tokenService.update(existingUser.email, {

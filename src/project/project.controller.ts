@@ -5,6 +5,7 @@ import {
   Body,
   UseGuards,
   Req,
+  Get,
 
   // Patch,
   // Param,
@@ -28,5 +29,10 @@ export class ProjectController {
     const user = req.user;
     console.log('user in project controller', user);
     return this.projectService.create(createProjectDto);
+  }
+
+  @Get("/allprojects")
+  findAll(){
+    return this.projectService.findAll()
   }
 }

@@ -20,14 +20,18 @@ export class ProjectGuard extends AuthGuard('jwt') {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    const bearerToken = request.headers['authorization'];
+    // console.log("request",request)
+    // const bearerToken = request.headers['authorization'];
+    // console.log("bearer token",bearerToken)
 
-    if (!bearerToken) {
+   
+
+    // const token = bearerToken.split(' ')[1];
+    const token= request.body.token
+    console.log('token in project service', token);
+    if (!token) {
       throw new UnauthorizedException('No token provided');
     }
-
-    const token = bearerToken.split(' ')[1];
-    // console.log('token in project service', token);
 
     try {
       const payload = this.jwtService.verify(token, {
@@ -39,7 +43,8 @@ export class ProjectGuard extends AuthGuard('jwt') {
       const loginDetail = await this.loginService.findOne(payload.email);
       // console.log('loginDetail in project service', loginDetail);
       if (!loginDetail) {
-        throw new UnauthorizedException('User not found');
+        console.log("unauthorized")
+        return false;
       }
 
       // Attach the login details to the request object for use in your route handlers

@@ -5,6 +5,7 @@ import { Login } from '../../login/entities/login.entity';
 import { ProjectHostRule } from '../../projecthostrule/entities/projecthostrule.entity';
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -38,6 +39,10 @@ export class Project {
 
   @Column()
   token: string;
+
+  @CreateDateColumn({type:"timestamp"})
+  createdAt:Date;
+
 
   @ManyToOne(() => Category, (category) => category.projects)
   category: Category;
