@@ -59,7 +59,11 @@ export class LoginService {
         password: existingUser.password,
       };
       const newAccessToken = await this.jwtService.signAsync(againPayload, {
+<<<<<<< HEAD
         expiresIn: '5m',
+=======
+        expiresIn: '5 m',
+>>>>>>> 99583c4d2d37c72668ec3c2aff67e6d9ad3a6ae9
       });
 
       await this.tokenService.update(existingUser.email, {
